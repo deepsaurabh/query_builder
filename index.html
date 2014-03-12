@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">    
+        <title> Query Builder</title>
+        <link rel="stylesheet" href="css/Bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>'Query' Builder</h1>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-9">
+
+                    <!-- select -->
+                    <div id = "select">
+                        <div class="alert alert-warning alert-group" id = "mainSelect">
+                            <button id ="selectBtn" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span> <b>  Select: </b></button>
+                            <div class="select-lines">
+                            </div>
+
+
+                        </div>
+                    </div>    <!-- select ends -->
+
+                    <!-- from -->
+                    <div id = "from">
+                        <div class="alert alert-warning alert-group" id = "mainFrom">
+                            <button id ="fromBtn" class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span> <b>  From: </b></button>
+                            <div class="from-model">
+
+                            </div>
+
+
+                        </div>
+                    </div>    <!-- from ends -->
+
+
+
+                    <!-- where clause -->
+                    <div id = "where">
+                        <div class="alert alert-warning alert-group" id = "mainWhere">
+                            <button id ="whereBtn" class="btn btn-primary"><span class="glyphicon glyphicon-indent-left"></span> <b>  Where: </b></button>
+                            <div class="group-conditions">
+
+                            </div>
+
+
+                        </div>
+                    </div> <!-- where Ends -->
+
+                    <!-- group by clause -->
+                    <div id = "groupby">
+                        <div class="alert alert-warning alert-group" id = "maingroupby">
+                            <button id ="groupbyBtn" class="btn btn-primary"><span class="glyphicon glyphicon-list"></span> <b>  Group By: </b></button>
+                            <div class="groupby-line">
+
+                            </div>
+
+
+                        </div>
+                    </div> <!-- groupby Ends -->
+
+                    <!-- Having clause -->
+                    <div id = "having">
+                        <div class="alert alert-warning alert-group" id = "mainHaving">
+                            <button id ="havingBtn" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> <b>  Having: </b></button>
+                            <div class="having-conditions">
+
+                            </div>
+
+
+                        </div>
+                    </div> <!-- having Ends -->
+
+                    <!-- order clause -->
+                    <div id = "order">
+                        <div class="alert alert-warning alert-group" id = "mainOrder">
+                            <button id ="orderBtn" class="btn btn-primary"><span class="glyphicon glyphicon-sort-by-attributes"></span> <b>  Order by: </b></button>
+                            <div class="order-by">
+
+                            </div>
+
+
+                        </div>
+                    </div> <!-- order Ends -->
+
+
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <div class="alert alert-info">
+                        <strong>Example Output</strong><br/>
+                        <span id = "outputSelect"></span><br>
+                        <span id = "outputFrom"></span><br>
+                        <span id = "outputWhere"></span><br>
+                        <span id = "outputGroupby"></span><br>
+                        <span id = "outputHaving"></span><br>
+                        <span id = "outputOrderby"></span>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+        </div>
+        <!-- Template where condition -->
+        <div target="cloneCondition" class="condition" id ="dupCondition" style="display: none">
+            <select id = "fields"></select>
+            <select id ="comparisons"></select>
+            <input id ="Value" type="text"></input>
+            <button id ="removeCondition" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus-sign"></span></button>
+        </div>  <!-- Template Ends -->
+        <!-- Template where Group -->
+        <div class="alert alert-warning alert-group" id = "dupGroup" target="cloneGroup" style="display: none">
+            <select id = "logicalOperators"> </select>
+            <button id ="addCondition" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
+            <button id ="addGroup" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Group</button>
+            <button id ="removeGroup" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
+            <div class="group-conditions">
+
+            </div>
+        </div>   <!-- Template Ends -->
+        <!-- Temlate From -->
+        <div  class="from" id ="dupFrom" target="cloneFrom" style="display: none" >
+            <select id = "fromModel"></select>
+            <button id ="fromAdd" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-resize-small"></span> Join</button>
+            <button id ="removeFrom" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus-sign"></span></button>
+        </div> <!-- Template Ends -->
+
+        <!-- Temlate Select -->
+        <div  class="" id ="dupSelect" target="cloneSelect" style="display: none"  >
+            <select id = "expression"></select>
+            <select id = "selectFields"></select>
+            <button id ="selectAdd" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus-sign"></span></button>
+            <button id ="selectRemove" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus-sign"></span></button>
+        </div> <!-- Template Ends -->
+
+        <!-- Temlate Order -->
+        <div  class="" id ="dupOrder" target="cloneOrder" style="display: none"  >
+            <select id = "fields"></select>
+            <select id = "orderBy"></select>
+            <button id ="orderAdd" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus-sign"></span></button>
+            <button id ="orderRemove" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus-sign"></span></button>
+        </div> <!-- Template Ends -->
+
+        <!-- Temlate Limit -->
+        <div  class="" id ="dupLimit" target="cloneLimit" style="display: none"  >
+            <input id ="limitTxt" type="text" class="col-md-1"></input>
+            <button id ="limitClear" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-remove-sign"></span></button>
+            <button id ="limitRemove" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus-sign"></span></button>
+        </div> <!-- Template Ends -->
+
+        <!-- Temlate group by -->
+        <div  class="" id ="dupGroupby" target="cloneGroupby" style="display: none"  >
+            <select id = "groupbyFields"></select>
+            <button id ="groupbyAdd" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus-sign"></span></button>
+            <button id ="groupbyRemove" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus-sign"></span></button>
+        </div> <!-- Template group by  Ends -->
+
+        <!-- Template having condition -->
+        <div target="cloneHavingcondition" class="havingcondition" id ="dupHavingcondition" style="display: none">
+            <select id = "expression"></select>
+            <select id = "fields"></select>
+            <select id ="comparisons"></select>
+            <input id ="ValueHaving" type="text"></input>
+            <button id ="removeCondition_having" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus-sign"></span></button>
+        </div>  <!-- Template Ends -->
+        <!-- Template having Group -->
+        <div class="alert alert-warning alert-group" id = "dupHavinggroup" target="cloneHavinggroup" style="display: none">
+            <select id = "logicalOperators"> </select>
+            <button id ="addCondition_having" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
+            <button id ="addGroup_having" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Add Group</button>
+            <button id ="removeGroup_having" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
+            <div class="having-conditions">
+
+            </div>
+        </div>   <!-- Template Ends -->
+        <!-- Temlate From Join -->
+        <div  class="" id ="dupFromjoin" target="cloneFromjoin" style="display: none" >
+            <div>
+                <select id = "join"></select>   
+                <span style="margin-left: 25%">
+                    <select id = "fields1"></select>
+                    <select id ="comparisons"></select>
+                    <select id = "fields2"></select> 
+                </span>
+            </div>
+            <div class = "from">
+                <select id = "fromModel"></select>
+                <button id ="fromAdd" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-resize-small"></span> Join</button>
+                <button id ="removeFrom" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-minus-sign"></span></button>
+            </div>
+
+        </div> <!-- Template Ends -->
+
+
+        <!-- js -->
+        <script src="js/vendor/jquery-min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/query.js"></script>
+        <script src="js/from.js"></script>
+        <script src="js/where.js"></script>
+        <script src="js/select.js"></script>
+        <script src="js/order.js"></script>
+        <script src="js/having.js"></script>
+        <script src="js/groupby.js"></script>
+
+    </body>
+</html>
